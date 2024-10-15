@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+@model Employee;
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Employee</title>
+    <!-- Adding Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* General page styling */
+        .dash-container {
+            padding: 20px;
+        }
+
+        .card {
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .card-header {
+            background: linear-gradient(45deg, #4e73df, #224abe);
+            border-radius: 15px 15px 0 0;
+            color: white;
+            padding: 15px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .form-control {
+            border-radius: 50px;
+            padding: 10px;
+        }
+
+        /* Styling for each file upload button */
+        .custom-file-label {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+            .custom-file-label i {
+                margin-right: 10px;
+                color: #6c757d;
+            }
+
+            .custom-file-label:hover {
+                background-color: #e2e6ea;
+            }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 16px;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="dash-container">
+        <div class="dash-content">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="page-header-title">
+                                <h4 class="text-primary font-weight-bold"><i class="fas fa-user-plus"></i> Create New Employee</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card shadow-lg border-0 rounded-lg">
+                        <div class="card-header bg-gradient-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-info-circle"></i> Employee Details</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <form asp-action="Create" method="post" enctype="multipart/form-data" class="p-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- First Name -->
+                                            <div class="form-group">
+                                                <label asp-for="FirstName" class="control-label font-weight-bold"><i class="fas fa-user"></i> First Name</label>
+                                                <input asp-for="FirstName" class="form-control rounded-pill" placeholder="Enter first name" />
+                                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                                            </div>
+
+                                            <!-- Last Name -->
+                                            <div class="form-group">
+                                                <label asp-for="LastName" class="control-label font-weight-bold"><i class="fas fa-user"></i> Last Name</label>
+                                                <input asp-for="LastName" class="form-control rounded-pill" placeholder="Enter last name" />
+                                                <span asp-validation-for="LastName" class="text-danger"></span>
+                                            </div>
+
+                                            <!-- Position -->
+                                            <div class="form-group">
+                                                <label asp-for="Position" class="control-label font-weight-bold"><i class="fas fa-briefcase"></i> Position</label>
+                                                <input asp-for="Position" class="form-control rounded-pill" placeholder="Enter position" />
+                                                <span asp-validation-for="Position" class="text-danger"></span>
+                                            </div>
+
+                                            <!-- Salary -->
+                                            <div class="form-group">
+                                                <label asp-for="Salary" class="control-label font-weight-bold"><i class="fas fa-dollar-sign"></i> Salary</label>
+                                                <input asp-for="Salary" class="form-control rounded-pill" placeholder="Enter salary" />
+                                                <span asp-validation-for="Salary" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <!-- Department -->
+                                            <div class="form-group">
+                                                <label asp-for="DepartmentId" class="control-label font-weight-bold"><i class="fas fa-building"></i> Department</label>
+                                                <select asp-for="DepartmentId" class="form-control rounded-pill" asp-items="@(new SelectList(ViewBag.DepartmentId, "Value", "Text"))"></select>
+                                                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                                            </div>
+
+                                            <!-- Date of Birth -->
+                                            <div class="form-group">
+                                                <label asp-for="DateOfBirth" class="control-label font-weight-bold"><i class="fas fa-calendar-alt"></i> Date of Birth</label>
+                                                <input asp-for="DateOfBirth" type="date" class="form-control rounded-pill" />
+                                                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                                            </div>
+
+                                            <!-- Gender -->
+                                            <div class="form-group">
+                                                <label asp-for="Gender" class="control-label font-weight-bold"><i class="fas fa-venus-mars"></i> Gender</label>
+                                                <select asp-for="Gender" class="form-control rounded-pill">
+                                                    <option value="">Select Gender</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                                <span asp-validation-for="Gender" class="text-danger"></span>
+                                            </div>
+
+                                            <!-- Email -->
+                                            <div class="form-group">
+                                                <label asp-for="Email" class="control-label font-weight-bold"><i class="fas fa-envelope"></i> Email</label>
+                                                <input asp-for="Email" class="form-control rounded-pill" placeholder="Enter email" />
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+
+                                            <!-- Phone -->
+                                            <div class="form-group">
+                                                <label asp-for="Phone" class="control-label font-weight-bold"><i class="fas fa-phone"></i> Phone</label>
+                                                <input asp-for="Phone" class="form-control rounded-pill" placeholder="Enter phone number" />
+                                                <span asp-validation-for="Phone" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Profile Picture Upload -->
+                                    <div class="row mt-3">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label asp-for="ImageFile" class="control-label font-weight-bold"><i class="fas fa-image"></i> Profile Picture</label>
+                                                <div class="custom-file">
+                                                    <label class="custom-file-label rounded-pill" for="profileImageUpload"><i class="fas fa-upload"></i> Choose Profile Picture</label>
+                                                </div>
+                                                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Certificate Upload -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label asp-for="CertificateFile" class="control-label font-weight-bold"><i class="fas fa-file-alt"></i> Upload Certificate</label>
+                                                <div class="custom-file">
+                                                    <label class="custom-file-label rounded-pill" for="certificateUpload"><i class="fas fa-upload"></i> Choose Certificate</label>
+                                                </div>
+                                                <span asp-validation-for="CertificateFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Resume Upload -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label asp-for="ResumeFile" class="control-label font-weight-bold"><i class="fas fa-file-alt"></i> Upload Resume</label>
+                                                <div class="custom-file">
+                                                    <label class="custom-file-label rounded-pill" for="resumeUpload"><i class="fas fa-upload"></i> Choose Resume</label>
+                                                </div>
+                                                <span asp-validation-for="ResumeFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <div class="form-group mt-4">
+                                        <button type="submit" class="btn btn-success rounded-pill"><i class="fas fa-save"></i> Create Employee</button>
+                                        <a asp-action="Index" class="btn btn-secondary rounded-pill"><i class="fas fa-arrow-left"></i> Back</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

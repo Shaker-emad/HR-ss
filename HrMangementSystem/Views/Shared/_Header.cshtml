@@ -1,0 +1,58 @@
+﻿<header class="dash-header">
+    <div class="header-wrapper d-flex align-items-center justify-content-between">
+        <!-- Left Section: User Profile -->
+        <div class="me-auto dash-mob-drp">
+            <ul class="list-unstyled m-0 p-0">
+                <li class="dropdown dash-h-item drp-company">
+                    <a class="dash-head-link dropdown-toggle d-flex align-items-center" href="#" role="button" onclick="toggleProfileMenu()">
+                        <span class="theme-avtar me-2">
+                            <img src="/Images/user-1.jpg" class="img-fluid profile-img" alt="User Image">
+                        </span>
+                        <span class="username">Hi, hr!</span>
+                    </a>
+                    <div class="dropdown-menu" id="profileMenu">
+                        <a class="dropdown-item" href="#myProfile">
+                            <i class="fa-solid fa-user"></i> My Profile
+                        </a>
+                        <a class="dropdown-item" href="#logout">
+                            <i class="fa-solid fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- Right Section: Icons -->
+        <div class="ms-auto icons-wrapper">
+            <ul class="list-unstyled icon-list d-flex m-0 p-0">
+                <!-- Messages Icon -->
+                <li class="dash-h-item me-3">
+                    <a class="dash-head-link position-relative" href="#messages">
+                        <i class="fa-regular fa-comment"></i>
+                        <span class="badge position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">1</span>
+                    </a>
+                </li>
+                <!-- Notifications Icon -->
+                <li class="dash-h-item me-3">
+                    <a class="dash-head-link position-relative" href="#notifications">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">1</span>
+                    </a>
+                </li>
+                <!-- Language Dropdown -->
+                <li class="dash-h-item drp-language">
+                    <a class="dash-head-link dropdown-toggle" href="#" role="button" onclick="toggleLanguageMenu()">
+                        <i class="fa-solid fa-globe"></i> English
+                    </a>
+                    <div class="dropdown-menu" id="languageMenu">
+                        <a class="dropdown-item" href="#english">
+                            <i class="fa-solid fa-globe"></i> English
+                        </a>
+                        <a class="dropdown-item" href="#arabic">
+                            <i class="fa-solid fa-globe"></i> Arabic
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>

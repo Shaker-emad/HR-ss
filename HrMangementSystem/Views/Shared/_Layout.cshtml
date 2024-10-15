@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HrManagementSystem</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/employee.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Header.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/staff.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    @*  <link rel="stylesheet" href="~/css/all.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/all.min.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+
+
+</head>
+<body>
+    <!-- Header -->
+    @Html.Partial("_Header")
+
+    <!-- Sidebar Navigation -->
+    <header>
+        <nav class="dash-sidebar light-sidebar transparent-bg">
+            <div class="navbar-wrapper">
+                <div class="m-header main-logo">
+                    <a href="@Url.Action("Index", "Home")" class="b-brand">
+                        <img src="~/Images/logo.jpeg" alt="HRMGo" class="logo logo-lg" />
+                    </a>
+                </div>
+                <div class="navbar-content">
+                    <ul>
+                        <li>
+                            <span class="dash-micon"><a href="@Url.Action("Dashboard", "Home")"><i class="fa-solid fa-home"></i> Dashboard</a></span>
+
+                        </li>
+                        <li class="dropdown">
+                            <a asp-controller="staff" asp-action="ManageUsers"><i class="fa-solid fa-user-group"></i> Staff</a>
+
+                        </li>
+                        <li>
+                            <a asp-controller="Employee" asp-action="Index"><i class="fa-solid fa-user"></i> Employee</a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "Payroll")"><i class="fa-solid fa-receipt"></i> Payroll</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Timesheet")"><i class="fa-solid fa-clock"></i> Timesheet</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Performance")"><i class="fa-solid fa-charts"></i> Performance</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Training")"><i class="icon-training"></i>Training</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Uncomment the Footer when needed -->
+    @*
+    <footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; 2024 - HrManagementSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+    </footer>
+    *@
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
