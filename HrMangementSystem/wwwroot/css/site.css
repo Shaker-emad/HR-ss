@@ -32,6 +32,7 @@ ol, ul, dl {
     .dash-header .header-wrapper {
         display: flex;
         padding: 0 30px;
+        margin-top:auto;
         background-color: #fff;
         align-items: center;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -226,3 +227,4 @@ ol, ul, dl {
             display: inline;
         }
     }
+

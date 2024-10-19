@@ -1,0 +1,203 @@
+﻿@model HrManagementSystem.Models.Attendance
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Attendance Record</title>
+    <!-- Add Bootstrap CSS before Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        .dash-container {
+            padding: 20px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            margin-top: 20px;
+        }
+
+        .card-header {
+            background: linear-gradient(45deg, #4e73df, #224abe);
+            border-radius: 15px 15px 0 0;
+            color: white;
+            padding: 1rem;
+            border-bottom: none;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ced4da;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #4e73df;
+                box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+            }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-success {
+            background-color: #1cc88a;
+            border-color: #1cc88a;
+        }
+
+            .btn-success:hover {
+                background-color: #169b6b;
+                border-color: #169b6b;
+            }
+
+        .btn-secondary {
+            background-color: #858796;
+            border-color: #858796;
+        }
+
+            .btn-secondary:hover {
+                background-color: #717384;
+                border-color: #717384;
+            }
+
+        .text-danger {
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="dash-container">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-xl-10">
+                    <div class="page-header mb-4">
+                        <h4 class="text-primary fw-bold">
+                            <i class="fas fa-calendar-check me-2"></i>Create Attendance Record
+                        </h4>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-info-circle me-2"></i>Attendance Details
+                            </h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <form asp-action="Create" method="post" class="needs-validation" novalidate>
+                                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="EmployeeId" class="form-label required">Employee</label>
+                                            <select asp-for="EmployeeId"
+                                                    class="form-select"
+                                                    asp-items="ViewBag.Employees"
+                                                    required>
+                                                <option value="">-- Select Employee --</option>
+                                            </select>
+                                            <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="form-group mt-3">
+                                            <label asp-for="Date" class="form-label required">Attendance Date</label>
+                                            <input asp-for="Date"
+                                                   class="form-control"
+                                                   type="date"
+                                                   required />
+                                            <span asp-validation-for="Date" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="CheckInTime" class="form-label required">Check-in Time</label>
+                                            <input asp-for="CheckInTime"
+                                                   class="form-control"
+                                                   type="time"
+                                                   required />
+                                            <span asp-validation-for="CheckInTime" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="form-group mt-3">
+                                            <label asp-for="CheckOutTime" class="form-label">Check-out Time</label>
+                                            <input asp-for="CheckOutTime"
+                                                   class="form-control"
+                                                   type="time" />
+                                            <span asp-validation-for="CheckOutTime" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save me-2"></i>Create Record
+                                    </button>
+                                    <a asp-action="Index" class="btn btn-secondary ms-2">
+                                        <i class="fas fa-arrow-left me-2"></i>Back to List
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                // Set default date to today
+                if (!$('#Date').val()) {
+                    $('#Date').val(new Date().toISOString().split('T')[0]);
+                }
+
+                // Enhanced form validation
+                $('form').submit(function (e) {
+                    var checkIn = $('#CheckInTime').val();
+                    var checkOut = $('#CheckOutTime').val();
+                    var date = $('#Date').val();
+                    var employee = $('#EmployeeId').val(); // استخدم EmployeeId بدلاً من EmployeeID
+
+                    // Check if required fields are filled
+                    if (!employee || !date || !checkIn) {
+                        e.preventDefault();
+                        alert('Please fill in all required fields');
+                        return false;
+                    }
+
+                    // Validate check-out time if provided
+                    if (checkOut && checkOut <= checkIn) {
+                        e.preventDefault();
+                        alert('Check-out time must be after check-in time');
+                        return false;
+                    }
+
+                    // Validate date is not in future
+                    if (new Date(date) > new Date()) {
+                        e.preventDefault();
+                        alert('Attendance date cannot be in the future');
+                        return false;
+                    }
+                });
+            });
+        </script>
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

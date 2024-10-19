@@ -14,6 +14,7 @@ namespace HrMangementSystem.Models
         public Manager Manager { get; set; }
 
         // Navigation property for employees in the department
+        public ICollection<Objective> Objectives { get; set; } // العلاقة بين الأقسام والأهداف
 
         public ICollection<Employee> Employees { get; set; }
     }

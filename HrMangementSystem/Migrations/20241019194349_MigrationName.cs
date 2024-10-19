@@ -8,11 +8,29 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HrMangementSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateEmployeeModel : Migration
+    public partial class MigrationName : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Documents",
+                columns: table => new
+                {
+                    DocumentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DocumentType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    ContentType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FileSize = table.Column<int>(type: "int", nullable: false),
+                    UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FilePath = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Documents", x => x.DocumentID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Managers",
                 columns: table => new
@@ -24,7 +42,7 @@ namespace HrMangementSystem.Migrations
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DepartmentID = table.Column<int>(type: "int", nullable: false)
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,6 +120,74 @@ namespace HrMangementSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Absences",
+                columns: table => new
+                {
+                    AbsenceID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Absences", x => x.AbsenceID);
+                    table.ForeignKey(
+                        name: "FK_Absences_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Attendances",
+                columns: table => new
+                {
+                    AttendanceID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    CheckInTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CheckOutTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attendances", x => x.AttendanceID);
+                    table.ForeignKey(
+                        name: "FK_Attendances_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "leaves",
+                columns: table => new
+                {
+                    LeaveID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    LeaveStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LeaveEndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LeaveType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LeaveStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_leaves", x => x.LeaveID);
+                    table.ForeignKey(
+                        name: "FK_leaves_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Objectives",
                 columns: table => new
                 {
@@ -112,23 +198,52 @@ namespace HrMangementSystem.Migrations
                     ObjectiveType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DepartmentID = table.Column<int>(type: "int", nullable: false),
-                    EmployeeID = table.Column<int>(type: "int", nullable: true)
+                    DepartmentId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Objectives", x => x.ObjectiveID);
                     table.ForeignKey(
-                        name: "FK_Objectives_Departments_DepartmentID",
-                        column: x => x.DepartmentID,
+                        name: "FK_Objectives_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
                         principalTable: "Departments",
                         principalColumn: "DepartmentId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Objectives_Employees_EmployeeID",
-                        column: x => x.EmployeeID,
+                        name: "FK_Objectives_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "performanceReviews",
+                columns: table => new
+                {
+                    ReviewID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    ReviewDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReviewDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReviewerID = table.Column<int>(type: "int", nullable: false),
+                    Rating = table.Column<decimal>(type: "decimal(5,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_performanceReviews", x => x.ReviewID);
+                    table.ForeignKey(
+                        name: "FK_performanceReviews_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_performanceReviews_Managers_ReviewerID",
+                        column: x => x.ReviewerID,
+                        principalTable: "Managers",
+                        principalColumn: "ManagerId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -137,8 +252,9 @@ namespace HrMangementSystem.Migrations
                 {
                     ProgressID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeeID = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
                     ObjectiveID = table.Column<int>(type: "int", nullable: false),
+                    Progress = table.Column<int>(type: "int", nullable: false),
                     ProgressDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProgressDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -147,8 +263,8 @@ namespace HrMangementSystem.Migrations
                 {
                     table.PrimaryKey("PK_PerformanceProgresses", x => x.ProgressID);
                     table.ForeignKey(
-                        name: "FK_PerformanceProgresses_Employees_EmployeeID",
-                        column: x => x.EmployeeID,
+                        name: "FK_PerformanceProgresses_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Cascade);
@@ -162,7 +278,7 @@ namespace HrMangementSystem.Migrations
 
             migrationBuilder.InsertData(
                 table: "Managers",
-                columns: new[] { "ManagerId", "DepartmentID", "Email", "FirstName", "LastName", "Phone", "Position" },
+                columns: new[] { "ManagerId", "DepartmentId", "Email", "FirstName", "LastName", "Phone", "Position" },
                 values: new object[,]
                 {
                     { 1, 0, "john.doe@example.com", "John", "Doe", "123-456-7890", "HR Manager" },
@@ -179,7 +295,7 @@ namespace HrMangementSystem.Migrations
                 {
                     { 1, "alice.johnson@example.com", "Alice", "user-1.jpg", "Johnson", "hashed_password1", "HR" },
                     { 2, "bob.smith@example.com", "Bob", "user-1.jpg", "Smith", "hashed_password2", "Manager" },
-                    { 3, "charlie.brown@example.com", "Charlie", "user-1.jpg", "Brown", "hashed_password3", "Employee" }
+                    { 3, "charlie.brown@example.com", "Charlie", "user-1.jpg", "Brown", "hashed_password3", "Admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -207,6 +323,16 @@ namespace HrMangementSystem.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Absences_EmployeeId",
+                table: "Absences",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Attendances_EmployeeId",
+                table: "Attendances",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Departments_ManagerId",
                 table: "Departments",
                 column: "ManagerId",
@@ -218,31 +344,61 @@ namespace HrMangementSystem.Migrations
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Objectives_DepartmentID",
-                table: "Objectives",
-                column: "DepartmentID");
+                name: "IX_leaves_EmployeeId",
+                table: "leaves",
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Objectives_EmployeeID",
+                name: "IX_Objectives_DepartmentId",
                 table: "Objectives",
-                column: "EmployeeID");
+                column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PerformanceProgresses_EmployeeID",
+                name: "IX_Objectives_EmployeeId",
+                table: "Objectives",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PerformanceProgresses_EmployeeId",
                 table: "PerformanceProgresses",
-                column: "EmployeeID");
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PerformanceProgresses_ObjectiveID",
                 table: "PerformanceProgresses",
                 column: "ObjectiveID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_performanceReviews_EmployeeId",
+                table: "performanceReviews",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_performanceReviews_ReviewerID",
+                table: "performanceReviews",
+                column: "ReviewerID");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Absences");
+
+            migrationBuilder.DropTable(
+                name: "Attendances");
+
+            migrationBuilder.DropTable(
+                name: "Documents");
+
+            migrationBuilder.DropTable(
+                name: "leaves");
+
+            migrationBuilder.DropTable(
                 name: "PerformanceProgresses");
+
+            migrationBuilder.DropTable(
+                name: "performanceReviews");
 
             migrationBuilder.DropTable(
                 name: "Staff");

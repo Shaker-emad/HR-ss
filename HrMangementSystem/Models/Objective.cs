@@ -13,11 +13,11 @@ namespace HrMangementSystem.Models
         public DateTime EndDate { get; set; }
 
         // Foreign Key
-        public int DepartmentID { get; set; }
+        public int DepartmentId { get; set; }
         public Department Department { get; set; }
 
         // Optional Employee foreign key
-        public int? EmployeeID { get; set; }
+        public int? EmployeeId { get; set; }
         public Employee Employee { get; set; }
         public ICollection<PerformanceProgress> PerformanceProgresses { get; set; }
     }

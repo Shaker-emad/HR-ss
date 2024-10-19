@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HrManagementSystem.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace HrMangementSystem.Models
 {
@@ -8,7 +9,7 @@ namespace HrMangementSystem.Models
         public int ReviewID { get; set; }
 
         // Foreign Key
-        public int EmployeeID { get; set; }
+        public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
 
         public DateTime ReviewDate { get; set; }

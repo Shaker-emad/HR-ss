@@ -28,5 +28,9 @@ namespace HrMangementSystem.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult Dashboard()
+        {
+            return View(); // This will use _Layout by default
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace HrMangementSystem.Models
         public int LeaveID { get; set; }
 
         // Foreign Key
-        public int EmployeeID { get; set; }
+        public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
 
         public DateTime LeaveStartDate { get; set; }

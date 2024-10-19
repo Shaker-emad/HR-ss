@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="dashboard-container">
+    <h2 class="text-center mb-4">Dashboard</h2>
+
+    <!-- مخطط الحضور والغياب -->
+    <div class="chart-container mb-4">
+        <h4>Attendance and Absence Rates</h4>
+        <canvas id="attendanceChart"></canvas>
+    </div>
+
+    <!-- موظف الشهر -->
+    <div class="employee-of-the-month mb-4">
+        <h4>Employee of the Month</h4>
+        @if (ViewBag.EmployeeOfTheMonth != null)
+        {
+            <div class="employee-card">
+                <h5>@ViewBag.EmployeeOfTheMonth.FirstName @ViewBag.EmployeeOfTheMonth.LastName</h5>
+                <p>Performance Score: @ViewBag.EmployeeOfTheMonth.PerformanceScore</p>
+            </div>
+        }
+        else
+        {
+            <p>No employee of the month available.</p>
+        }
+    </div>
+
+    <!-- تحديثات التوظيف -->
+    <div class="recruitment-updates mb-4">
+        <h4>Recruitment Updates</h4>
+        <ul>
+            @foreach (var recruitment in ViewBag.RecruitmentUpdates ?? Enumerable.Empty<object>())
+            {
+                <li>@recruitment.Position - @recruitment.StartDate.ToShortDateString()</li>
+            }
+        </ul>
+    </div>
+
+    <!-- أداة البحث السريعة -->
+    <div class="quick-search mb-4">
+        <h4>Quick Search</h4>
+        <input type="text" class="form-control" placeholder="Search for employees...">
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('attendanceChart').getContext('2d');
+        var attendanceStats = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.AttendanceStats));
+        var labels = attendanceStats.map(stat => 'Month ' + stat.Month);
+        var attendanceData = attendanceStats.map(stat => stat.AttendanceRate);
+        var absenceData = attendanceStats.map(stat => stat.AbsenceRate);
+
+        var attendanceChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Attendance Rate',
+                    data: attendanceData,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Absence Rate',
+                    data: absenceData,
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

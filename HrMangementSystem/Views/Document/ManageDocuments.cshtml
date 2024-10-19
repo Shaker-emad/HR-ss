@@ -1,0 +1,126 @@
+﻿@model Tuple<List<HrMangementSystem.Models.Document>, IEnumerable<Employee>, Dictionary<string, List<HrMangementSystem.Models.Document>>, Dictionary<string, int>>
+
+@{
+    ViewData["Title"] = "File Management";
+}
+
+<div class="file-management-wrapper">
+    <h2 class="file-section-title">Employee Files</h2>
+    <table class="employee-files-table modern-table">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>File Name</th>
+                <th>Upload Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Item2 != null && Model.Item2.Any())
+            {
+                foreach (var employee in Model.Item2)
+                {
+                    // Get employee files if they exist
+                    if (Model.Item3.TryGetValue(employee.EmployeeId.ToString(), out var employeeFiles))
+                    {
+                        if (employeeFiles != null && employeeFiles.Any())
+                        {
+                            foreach (var doc in employeeFiles)
+                            {
+                                <tr>
+                                    <td>@employee.FirstName @employee.LastName</td>
+                                    <td>@doc.FileName</td>
+                                    <td>@doc.UploadDate.ToString("yyyy-MM-dd")</td>
+                                    <td>
+                                        <a href="@Url.Action("Download", "Document", new { id = employee.EmployeeId })" class="action-btn btn-download">Download</a>
+                                        <form asp-action="DeleteEmployeeFile" asp-controller="Document" method="post" style="display:inline;">
+                                            <input type="hidden" name="employeeId" value="@employee.EmployeeId" />
+
+                                            @if (!string.IsNullOrEmpty(employee.Image))
+                                            {
+                                                <input type="hidden" name="fileType" value="Image" />
+                                                <button type="submit" class="action-btn btn-delete" onclick="return confirm('Are you sure you want to delete the image?');">Delete Image</button>
+                                            }
+                                            else if (!string.IsNullOrEmpty(employee.Certificate))
+                                            {
+                                                <input type="hidden" name="fileType" value="Certificate" />
+                                                <button type="submit" class="action-btn btn-delete" onclick="return confirm('Are you sure you want to delete the certificate?');">Delete Certificate</button>
+                                            }
+                                            else if (!string.IsNullOrEmpty(employee.Resume))
+                                            {
+                                                <input type="hidden" name="fileType" value="Resume" />
+                                                <button type="submit" class="action-btn btn-delete" onclick="return confirm('Are you sure you want to delete the resume?');">Delete Resume</button>
+                                            }
+                                        </form>
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">No employee files available.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2 class="file-section-title">Company Documents</h2>
+    <table class="company-files-table modern-table">
+        <thead>
+            <tr>
+                <th>Document Type</th>
+                <th>Document Name</th>
+                <th>Upload Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Item1 != null && Model.Item1.Any())
+            {
+                foreach (var doc in Model.Item1)
+                {
+                    <tr>
+                        <td>@doc.DocumentType</td>
+                        <td>@doc.FileName</td>
+                        <td>@doc.UploadDate.ToString("yyyy-MM-dd")</td>
+                        <td>
+                            <form asp-action="DeleteFile" asp-controller="Document" method="post" style="display:inline;">
+                                <input type="hidden" name="fileName" value="@doc.FileName" />
+                                <button type="submit" class="action-btn btn-delete" onclick="return confirm('Are you sure you want to delete this document?');">Delete</button>
+                            </form>
+
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">No company documents available.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form asp-action="UploadCompanyDocument" asp-controller="Document" enctype="multipart/form-data" method="post">
+        <div class="upload-section">
+            <h3>Add New Company Document</h3>
+            <input type="file" name="companyFile" class="file-upload-input" required />
+            <button type="submit" class="btn-upload">Upload Document</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @Html.Partial("_ValidationScriptsPartial")
+}
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

@@ -66,7 +66,8 @@ namespace HrMangementSystem.Controllers
                     await employee.CertificateFile.CopyToAsync(fileStream);
                 }
 
-                // قم بتخزين اسم الشهادة هنا إذا كان لديك خاصية لذلك
+                // تخزين اسم الشهادة
+                employee.Certificate = certificateName;
             }
 
             // معالجة تحميل السيرة الذاتية
@@ -82,7 +83,8 @@ namespace HrMangementSystem.Controllers
                     await employee.ResumeFile.CopyToAsync(fileStream);
                 }
 
-                // قم بتخزين اسم السيرة الذاتية هنا إذا كان لديك خاصية لذلك
+                // تخزين اسم السيرة الذاتية
+                employee.Resume = resumeName;
             }
 
             // إضافة الموظف إلى قاعدة البيانات
@@ -107,7 +109,6 @@ namespace HrMangementSystem.Controllers
 
             return View(employee);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -1,0 +1,50 @@
+﻿@model HrMangementSystem.Models.Staff
+
+@{
+    Layout = "_Index"; // Ensure this points to the correct layout
+    ViewData["Title"] = "Login";
+}
+
+<div class="custom-login-form">
+    <form asp-action="Login" method="post" class="needs-validation" novalidate="">
+        @Html.AntiForgeryToken() <!-- For CSRF protection -->
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage)) // Display error message if exists
+        {
+            <div class="alert alert-danger">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+        <div class="form-group mb-3">
+            <label class="form-label" for="email">Email</label>
+            <input id="email" type="email" asp-for="Email" class="form-control" placeholder="Enter your email" required autofocus>
+            <span asp-validation-for="Email" class="text-danger"></span> <!-- For displaying error messages -->
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label" for="password">Password</label>
+            <input id="password" type="password" asp-for="Password" class="form-control" placeholder="Enter your password" required>
+            <span asp-validation-for="Password" class="text-danger"></span> <!-- For displaying error messages -->
+        </div>
+
+        <div class="form-group mb-4">
+            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <span>
+                    <a href="#">Forgot Your Password?</a>
+                </span>
+            </div>
+        </div>
+
+        <div class="d-grid">
+            <button class="btn btn-primary mt-2 login-do-btn" type="submit">Login</button>
+        </div>
+
+        <p class="my-4 text-center"></p>
+
+        <div class="d-flex flex-wrap authorized-btn">
+            <button class="btn btn-secondary" type="button" id="company_login">Company Login</button>
+            <button class="btn btn-secondary" type="button" id="hr_login">HR Login</button>
+            <button class="btn btn-secondary" type="button" id="emp_login">Employee Login</button>
+        </div>
+    </form>
+</div>

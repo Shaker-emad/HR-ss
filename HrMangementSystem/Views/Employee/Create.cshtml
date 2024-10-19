@@ -173,13 +173,13 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <!-- Profile Picture Upload -->
                                     <div class="row mt-3">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label asp-for="ImageFile" class="control-label font-weight-bold"><i class="fas fa-image"></i> Profile Picture</label>
                                                 <div class="custom-file">
+                                                    <input asp-for="ImageFile" type="file" class="custom-file-input" id="profileImageUpload" />
                                                     <label class="custom-file-label rounded-pill" for="profileImageUpload"><i class="fas fa-upload"></i> Choose Profile Picture</label>
                                                 </div>
                                                 <span asp-validation-for="ImageFile" class="text-danger"></span>
@@ -191,6 +191,7 @@
                                             <div class="form-group">
                                                 <label asp-for="CertificateFile" class="control-label font-weight-bold"><i class="fas fa-file-alt"></i> Upload Certificate</label>
                                                 <div class="custom-file">
+                                                    <input asp-for="CertificateFile" type="file" class="custom-file-input" id="certificateUpload" />
                                                     <label class="custom-file-label rounded-pill" for="certificateUpload"><i class="fas fa-upload"></i> Choose Certificate</label>
                                                 </div>
                                                 <span asp-validation-for="CertificateFile" class="text-danger"></span>
@@ -202,18 +203,19 @@
                                             <div class="form-group">
                                                 <label asp-for="ResumeFile" class="control-label font-weight-bold"><i class="fas fa-file-alt"></i> Upload Resume</label>
                                                 <div class="custom-file">
+                                                    <input asp-for="ResumeFile" type="file" class="custom-file-input" id="resumeUpload" />
                                                     <label class="custom-file-label rounded-pill" for="resumeUpload"><i class="fas fa-upload"></i> Choose Resume</label>
                                                 </div>
                                                 <span asp-validation-for="ResumeFile" class="text-danger"></span>
                                             </div>
                                         </div>
                                     </div>
-
                                     <!-- Submit Button -->
                                     <div class="form-group mt-4">
                                         <button type="submit" class="btn btn-success rounded-pill"><i class="fas fa-save"></i> Create Employee</button>
                                         <a asp-action="Index" class="btn btn-secondary rounded-pill"><i class="fas fa-arrow-left"></i> Back</a>
                                     </div>
+
                                 </form>
                             </div>
                         </div>

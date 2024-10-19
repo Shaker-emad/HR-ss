@@ -1,0 +1,92 @@
+﻿@model PerformanceProgress;
+
+@{
+    ViewData["Title"] = "Edit Goal Tracking";
+}
+
+<section class="dash-container">
+    <div class="dash-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <div class="page-header-title">
+                            <h4>Edit Goal Tracking</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="table-responsive">
+                            <form asp-action="Edit" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="ProgressID" />
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="EmployeeId" class="control-label">Employee</label>
+                                    <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId">
+                                        <option value="">-- Select Employee --</option>
+                                    </select>
+                                    <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="ObjectiveID" class="control-label">Objective</label>
+                                    <select asp-for="ObjectiveID" class="form-control" asp-items="ViewBag.ObjectiveID">
+                                        <option value="">-- Select Objective --</option>
+                                    </select>
+                                    <span asp-validation-for="ObjectiveID" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="Progress" class="control-label">Progress (%)</label>
+                                    <input asp-for="Progress" class="form-control" type="number" min="0" max="100" />
+                                    <span asp-validation-for="Progress" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="ProgressDescription" class="control-label"></label>
+                                    <textarea asp-for="ProgressDescription" class="form-control" rows="4"></textarea>
+                                    <span asp-validation-for="ProgressDescription" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="ProgressDate" class="control-label">Review Date</label>
+                                    <input asp-for="ProgressDate" class="form-control" type="date" />
+                                    <span asp-validation-for="ProgressDate" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="Status" class="control-label"></label>
+                                    <select asp-for="Status" class="form-control">
+                                        <option value="">-- Select Status --</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Completed">Completed</option>
+                                        <option value="On Hold">On Hold</option>
+                                        <option value="Cancelled">Cancelled</option>
+                                    </select>
+                                    <span asp-validation-for="Status" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Save Changes
+                                    </button>
+                                    <a asp-action="Index" class="btn btn-secondary">
+                                        <i class="fas fa-arrow-left"></i> Back to List
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

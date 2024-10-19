@@ -1,0 +1,11 @@
+﻿.form-inline .form-group {
+    margin-right: 10px;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}

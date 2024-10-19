@@ -20,8 +20,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="wwwroot\Image\" />
+	  <Folder Include="Controllers\d\" />
+	  <Folder Include="Views\Login\" />
 	  <Folder Include="wwwroot\Certificates\" />
+	  <Folder Include="wwwroot\Documents\" />
 	  <Folder Include="wwwroot\Resumes\" />
 	  <Folder Include="wwwroot\uploads\" />
 	</ItemGroup>

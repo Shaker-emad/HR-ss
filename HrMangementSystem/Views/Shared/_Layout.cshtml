@@ -5,21 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HrManagementSystem</title>
 
-    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="~/css/employeeFileManagement.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/employee.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Header.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/attendance.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/staff.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Attendance.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Dashboard.css" asp-append-version="true" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    @*  <link rel="stylesheet" href="~/css/all.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/all.min.css" asp-append-version="true" /> *@
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
     <!-- Header -->
@@ -36,30 +32,18 @@
                 </div>
                 <div class="navbar-content">
                     <ul>
+                        @*<li>
+                            <a asp-controller="Dashboard" asp-action="Index"><i class="fa-solid fa-house"></i> Dashboard</a>
+                        </li>*@
+                        <li><a asp-controller="staff" asp-action="ManageUsers"><i class="fa-solid fa-user-group"></i> Staff</a></li>
+                        <li><a asp-controller="Employee" asp-action="Index"><i class="fa-solid fa-user"></i> Employee</a></li>
                         <li>
-                            <span class="dash-micon"><a href="@Url.Action("Dashboard", "Home")"><i class="fa-solid fa-home"></i> Dashboard</a></span>
-
-                        </li>
-                        <li class="dropdown">
-                            <a asp-controller="staff" asp-action="ManageUsers"><i class="fa-solid fa-user-group"></i> Staff</a>
-
-                        </li>
-                        <li>
-                            <a asp-controller="Employee" asp-action="Index"><i class="fa-solid fa-user"></i> Employee</a>
-                        </li>
-
-                        <li>
-                            <a href="@Url.Action("Index", "Payroll")"><i class="fa-solid fa-receipt"></i> Payroll</a>
+                            <a asp-controller="performance" asp-action="Index"><i class="fa-solid fa-chart-simple"></i> Performance</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "Timesheet")"><i class="fa-solid fa-clock"></i> Timesheet</a>
+                            <a asp-controller="attendance" asp-action="Index"><i class="fa-solid fa-clock"></i> Attendance</a>
                         </li>
-                        <li>
-                            <a href="@Url.Action("Index", "Performance")"><i class="fa-solid fa-charts"></i> Performance</a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Index", "Training")"><i class="icon-training"></i>Training</a>
-                        </li>
+                        <li><a href="@Url.Action("ManageDocuments", "Document")"><i class="fa-solid fa-file-import"></i> Documents</a></li>
                     </ul>
                 </div>
             </div>
@@ -69,18 +53,9 @@
     <!-- Main Content -->
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            @RenderBody() <!-- This will render content from views -->
         </main>
     </div>
-
-    <!-- Uncomment the Footer when needed -->
-    @*
-    <footer class="border-top footer text-muted">
-    <div class="container">
-    &copy; 2024 - HrManagementSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </div>
-    </footer>
-    *@
 
     <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>

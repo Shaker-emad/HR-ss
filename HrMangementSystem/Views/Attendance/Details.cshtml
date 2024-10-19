@@ -1,0 +1,28 @@
+﻿@model IEnumerable<HrManagementSystem.Models.Attendance>
+
+@{
+    ViewData["Title"] = "Attendance Details";
+}
+
+<h2>Attendance Details</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Check-in Time</th>
+            <th>Check-out Time</th>
+            <th>Attendance Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var attendance in Model)
+        {
+            <tr>
+                <td>@attendance.Employee.FullName</td>
+                <td>@attendance.CheckInTime.ToShortTimeString()</td>
+                <td>@attendance.CheckOutTime.ToShortTimeString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

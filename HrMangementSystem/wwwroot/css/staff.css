@@ -107,13 +107,12 @@
 /* Action Button Styles */
 .action-btn {
     display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%; /* Circular buttons */
+    width: 122px;
+    height: 41px;
     color: #fff;
     margin-left: 5px;
     text-align: center;
-    line-height: 30px; /* Center text vertically */
+    line-height: 30px;
 }
 
     .action-btn.bg-info {

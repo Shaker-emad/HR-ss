@@ -1,21 +1,31 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using HrMangementSystem;
 
-namespace HrMangementSystem.Models
+
+namespace HrMangementSystem.Models;
+public class Document
 {
-    public class Document
-    {
-        [Key]
-        public int DocumentID { get; set; }
+    [Key]
+    public int DocumentID { get; set; }
 
-        // Foreign Key
-        public int ApplicantID { get; set; }
-        public JobApplication JobApplication { get; set; }
+    [Required]
+    [StringLength(100)]
+    public string DocumentType { get; set; }  // نوع الملف مثل "CV", "Certificate"
 
-        public string DocumentType { get; set; }
-        public string FileName { get; set; }
-        public string ContentType { get; set; }
-        public int FileSize { get; set; }
-        public DateTime UploadDate { get; set; }
-        public byte[] CVFile { get; set; }
-    }
+    [Required]
+    [StringLength(255)]
+    public string FileName { get; set; }  // اسم الملف
+
+    [Required]
+    [StringLength(100)]
+    public string ContentType { get; set; }  // نوع محتوى الملف مثل "application/pdf"
+
+    [Required]
+    public int FileSize { get; set; }  // حجم الملف بالكيلوبايت
+
+    [Required]
+    public DateTime UploadDate { get; set; }  // تاريخ رفع الملف
+
+    [StringLength(500)]
+    public string FilePath { get; set; }  // مسار تخزين الملف
 }

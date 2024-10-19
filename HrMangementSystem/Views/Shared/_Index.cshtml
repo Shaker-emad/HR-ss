@@ -1,0 +1,67 @@
+﻿@* _Index.cshtml *@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HrManagementSystem</title>
+
+    <link rel="stylesheet" type="text/css" href="~/css/employeeFileManagement.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="~/css/custom-login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
+</head>
+<body class="theme-3">
+    <div class="custom-login">
+        <div class="login-bg-img">
+            <img src="~/image/theme-3.svg" class="login-bg-1">
+            <img src="~/image/common.svg" class="login-bg-2">
+        </div>
+        <div class="bg-login bg-primary"></div>
+        <div class="custom-login-inner">
+            <header class="dash-header">
+                <nav class="navbar navbar-expand-md default">
+                    <div class="container">
+                        <a class="navbar-brand" href="#">
+                            <div class="img-logo">
+                                <img src="~/image/logo245942780.jpeg"  alt="HRMGo" class="logo" />
+                                </div>
+                          
+                        </a>
+                    </div>
+                </nav>
+            </header>
+            <main class="custom-wrapper">
+                <div class="custom-row">
+                    <div class="card">
+                        <div class="card-body">
+                            @RenderBody() @* This is where the content from Login.cshtml will be rendered *@
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="~/js/jquery.min.js"></script>
+    <script>
+        $(document).on("click", "#company_login", function () {
+            $("#email").val('company@example.com');
+            $("#password").val('1234');
+            $('.login-do-btn').trigger('click');
+        });
+        $(document).on("click", "#hr_login", function () {
+            $("#email").val('hr@example.com');
+            $("#password").val('1234');
+            $('.login-do-btn').trigger('click');
+        });
+        $(document).on("click", "#emp_login", function () {
+            $("#email").val('IsidroTJohnson@armyspy.com');
+            $("#password").val('1234');
+            $('.login-do-btn').trigger('click');
+        });
+    </script>
+</body>
+</html>

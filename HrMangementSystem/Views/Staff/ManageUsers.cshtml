@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HrMangementSystem.Models.Staff>
+﻿@model IEnumerable<Staff>
 
 <div class="container">
     <main role="main" class="pb-3">
@@ -13,19 +13,12 @@
                                 <h4 class="m-b-10">Manage Users</h4>
                             </div>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/Home">Home</a></li>
-                                <li class="breadcrumb-item">Users</li>
                             </ul>
                         </div>
                         <div class="col">
                             <div class="float-end">
-                                <a href="/Staff/Create" class="btn btn-success btn-sm d-flex align-items-center" title="Create New User">
-                                    <i class="ti ti-plus"></i>
-                                    <span class="ms-1">New</span>
                                 </a>
                                 <div class="dropdown d-inline ms-2">
-                                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ti ti-dots-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <li><a class="dropdown-item" href="#" data-url="/SomeOtherAction">Some Other Action</a></li>
@@ -67,8 +60,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="avatar">
-                                    <a href="@Url.Content($"~/Images/{staff.ImageFile}")" target="_blank">
-                                        <img src="@Url.Content($"~/Images/{staff.ImageFile}")" class="rounded-circle" style="width: 30%;">
+                                    <a href="@Url.Content($"~/Images/user-1.jpg")" target="_blank">
+                                        <img src="@Url.Content($"~/Images/user-1.jpg")" class="rounded-circle" style="width: 30%;">
                                     </a>
                                 </div>
                                 <h4 class="mt-2 text-primary">@staff.FirstName @staff.LastName</h4>
